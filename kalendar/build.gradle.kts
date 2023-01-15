@@ -50,6 +50,8 @@ dependencies {
 
     debugApi(Deps.Compose.uiTooling)
 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
+
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.AndroidTest.jUnitExtensions)
     androidTestImplementation(Deps.AndroidTest.espressoCore)

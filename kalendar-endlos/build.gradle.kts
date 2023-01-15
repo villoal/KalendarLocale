@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.library)
     id(Plugins.kotlinAndroid)
-    Plugins.maven
+//    Plugins.maven
 }
 
 group="com.github.villoal"

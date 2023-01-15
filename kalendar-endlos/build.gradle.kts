@@ -61,4 +61,4 @@ dependencies {
     api(Deps.DateTime.date)
 }
 
-plugins.apply(Plugins.vanniktechPublish)
+//plugins.apply(Plugins.vanniktechPublish)

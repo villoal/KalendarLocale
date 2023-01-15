@@ -6,6 +6,7 @@ object Plugins {
     val vanniktechPublish by lazy { "com.vanniktech.maven.publish" }
     val ktlint by lazy { "org.jlleitschuh.gradle.ktlint" }
     val detekt by lazy { "io.gitlab.arturbosch.detekt" }
+    val maven by lazy { "com.github.dcendents.android-maven-plugin"}
 }
 
 object Deps {

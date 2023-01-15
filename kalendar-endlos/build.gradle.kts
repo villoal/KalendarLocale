@@ -1,7 +1,10 @@
 plugins {
     id(Plugins.library)
     id(Plugins.kotlinAndroid)
+    Plugins.maven
 }
+
+group="com.github.villoal"
 
 android {
     compileSdk = ModuleExtension.compileSdkVersion

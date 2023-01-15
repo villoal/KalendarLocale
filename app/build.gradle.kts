@@ -1,5 +1,5 @@
 plugins {
-    id(Plugins.application)
+    id(Plugins.library)
     kotlin(Plugins.android)
 }
 
@@ -7,11 +7,8 @@ android {
     compileSdk = ModuleExtension.compileSdkVersion
 
     defaultConfig {
-        applicationId = ModuleExtension.App.applicationId
         minSdk = ModuleExtension.DefaultConfigs.minSdkVersion
         targetSdk = ModuleExtension.DefaultConfigs.targetSdkVersion
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = ModuleExtension.DefaultConfigs.testInstrumentationRunner
         vectorDrawables {

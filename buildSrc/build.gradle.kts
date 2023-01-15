@@ -20,7 +20,7 @@ dependencies {
             register<MavenPublication>("java") {
                 groupId = "com.github.villoal"
                 artifactId = "KalendarLocale"
-                version = "0.1.4"
+                version = "0.1.5"
 
                 afterEvaluate {
                     from(components["java"])

@@ -26,6 +26,6 @@ subprojects {
 
 }
 allprojects {
-    version = "0.1.2"
+    version = "0.1.6"
     group = "com.github.villoal"
 }

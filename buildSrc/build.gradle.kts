@@ -15,12 +15,13 @@ dependencies {
     testImplementation("junit", "junit", "4.12")
 }
 
+
     publishing {
         publications {
             register<MavenPublication>("java") {
                 groupId = "com.github.villoal"
                 artifactId = "KalendarLocale"
-                version = "0.1.5"
+                version = "0.1.6"
 
                 afterEvaluate {
                     from(components["java"])

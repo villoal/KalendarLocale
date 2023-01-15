@@ -17,20 +17,15 @@ buildscript {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
 subprojects {
     apply(plugin = Plugins.ktlint)
     apply(plugin = Plugins.detekt)
+    apply(plugin = Plugins.maven)
 
-//    detekt {
-//        config = files("$rootDir/${ModuleExtension.FilePath.detekt}")
-//        buildUponDefaultConfig = true
-//    }
+
 }
 allprojects {
-    pluginManager.withPlugin(Plugins.vanniktechPublish) {
-        extensions.getByType(com.vanniktech.maven.publish.MavenPublishPluginExtension::class.java)
-            .apply {
-                sonatypeHost = com.vanniktech.maven.publish.SonatypeHost.S01
-            }
-    }
+    version = "0.1.2"
+    group = "com.github.villoal"
 }

@@ -7,9 +7,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    if ("true" == System.env.JITPACK) {
-        mavenLocal()
-    }
+//    mavenLocal()
 }
 
 dependencies {
@@ -17,17 +15,16 @@ dependencies {
     testImplementation("junit", "junit", "4.12")
 }
 
-project.afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>("maven") {
+            register<MavenPublication>("java") {
                 groupId = "com.github.villoal"
                 artifactId = "KalendarLocale"
-                version = "0.1.3"
+                version = "0.1.4"
 
-                from(components["java"])
+                afterEvaluate {
+                    from(components["java"])
+                }
             }
         }
     }
-
-}

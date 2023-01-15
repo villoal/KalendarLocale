@@ -7,6 +7,9 @@ plugins {
 
 repositories {
     mavenCentral()
+    if ("true" == System.env.JITPACK) {
+        mavenLocal()
+    }
 }
 
 dependencies {

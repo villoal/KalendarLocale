@@ -15,6 +15,7 @@
  */
 package com.himanshoe.kalendar.ui.firey
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,6 +61,7 @@ fun KalendarFirey(
     kalendarThemeColors: List<KalendarThemeColor>,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
+    currentDayBorder: BorderStroke? = null,
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val displayedMonth = remember {
@@ -128,7 +130,7 @@ fun KalendarFirey(
                     if (it > 0) {
                         val day = getGeneratedDay(it, currentMonth, currentYear)
                         val isCurrentDay = day == currentDay
-                        KalendarDay(
+                        com.himanshoe.kalendar.component.day.KalendarDay(
                             kalendarDay = day.toKalendarDay(),
                             modifier = Modifier,
                             kalendarEvents = kalendarEvents,
@@ -141,6 +143,7 @@ fun KalendarFirey(
                             kalendarDayColors = kalendarDayColors,
                             dotColor = kalendarThemeColors[currentMonth.value.minus(1)].headerTextColor,
                             dayBackgroundColor = kalendarThemeColors[currentMonth.value.minus(1)].dayBackgroundColor,
+                            currentDayBorder = currentDayBorder,
                         )
                     }
                 }
@@ -157,7 +160,8 @@ fun KalendarFirey(
     takeMeToDate: LocalDate?,
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColor: KalendarThemeColor,
-    kalendarHeaderConfig: KalendarHeaderConfig? = null
+    kalendarHeaderConfig: KalendarHeaderConfig? = null,
+    currentDayBorder: BorderStroke? = null,
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val displayedMonth = remember {
@@ -227,7 +231,7 @@ fun KalendarFirey(
                     if (it > 0) {
                         val day = getGeneratedDay(it, currentMonth, currentYear)
                         val isCurrentDay = day == currentDay
-                        KalendarDay(
+                        com.himanshoe.kalendar.component.day.KalendarDay(
                             kalendarDay = day.toKalendarDay(),
                             modifier = Modifier,
                             kalendarEvents = kalendarEvents,
@@ -240,6 +244,7 @@ fun KalendarFirey(
                             kalendarDayColors = kalendarDayColors,
                             dotColor = kalendarThemeColor.headerTextColor,
                             dayBackgroundColor = kalendarThemeColor.dayBackgroundColor,
+                            currentDayBorder = currentDayBorder
                         )
                     }
                 }

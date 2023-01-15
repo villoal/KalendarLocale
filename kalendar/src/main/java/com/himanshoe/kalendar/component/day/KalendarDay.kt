@@ -61,13 +61,13 @@ fun KalendarDay(
     kalendarEvents: List<KalendarEvent> = emptyList(),
     isCurrentDay: Boolean = false,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-
+    currentDayBorder: BorderStroke?,
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val bgColor = getBackgroundColor(kalendarDayState, dayBackgroundColor)
     val textColor = getTextColor(kalendarDayState, kalendarDayColors)
     val weight = getTextWeight(kalendarDayState)
-    val border = getBorder(isCurrentDay)
+    val border = currentDayBorder ?: getBorder(isCurrentDay)
 
     Column(
         modifier = modifier

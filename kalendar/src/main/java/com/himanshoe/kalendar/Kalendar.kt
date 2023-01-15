@@ -15,6 +15,7 @@
  */
 package com.himanshoe.kalendar
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ fun Kalendar(
     kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
     kalendarHeaderConfig: KalendarHeaderConfig? = null,
     takeMeToDate: LocalDate? = null,
+    currentDayBorder: BorderStroke? = null,
 ) {
     if (kalendarThemeColors.isEmpty() || kalendarThemeColors.count() < 12) throw Exception("KalendarThemeColor cannot be null or less than 12, If you want to use same color accors months pass kalendarThemeColor = KalendarThemeColor(values)")
 
@@ -52,7 +54,8 @@ fun Kalendar(
             kalendarThemeColors = kalendarThemeColors,
             takeMeToDate = takeMeToDate,
             kalendarHeaderConfig = kalendarHeaderConfig,
-            showWeekDays = kalendarType.showWeekDays
+            showWeekDays = kalendarType.showWeekDays,
+            currentDayBorder = currentDayBorder
 
         )
         KalendarType.Firey -> {
@@ -79,6 +82,7 @@ fun Kalendar(
     kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
     kalendarHeaderConfig: KalendarHeaderConfig? = null,
     takeMeToDate: LocalDate? = null,
+    currentDayBorder: BorderStroke? = null
 ) {
     when (kalendarType) {
         is KalendarType.Oceanic -> KalendarOceanic(
@@ -89,7 +93,8 @@ fun Kalendar(
             kalendarThemeColor = kalendarThemeColor,
             takeMeToDate = takeMeToDate,
             kalendarHeaderConfig = kalendarHeaderConfig,
-            showWeekDays = kalendarType.showWeekDays
+            showWeekDays = kalendarType.showWeekDays,
+            currentDayBorder = currentDayBorder
         )
         KalendarType.Firey -> {
             KalendarFirey(

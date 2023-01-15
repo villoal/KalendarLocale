@@ -15,6 +15,7 @@
  */
 package com.himanshoe.kalendar.ui.oceanic
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.KalendarDay
@@ -43,12 +46,7 @@ import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.toKalendarDay
 import com.himanshoe.kalendar.ui.oceanic.data.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.data.getPrevious7Dates
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
-import kotlinx.datetime.todayIn
+import kotlinx.datetime.*
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -62,9 +60,16 @@ fun KalendarOceanic(
     kalendarHeaderConfig: KalendarHeaderConfig? = null,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
+    currentDayBorder: BorderStroke?
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
+
+    val firstWeekDay = currentDay.daysShift(-DayOfWeek.values().indexOf(currentDay.dayOfWeek))
+    val weekDays = mutableListOf<LocalDate>()
+    for(i in 0 until DayOfWeek.values().count())
+        weekDays.add(firstWeekDay.daysShift(i))
+    val weekValue = remember { mutableStateOf(weekDays.toList()) }
+
     val month = weekValue.value.first().month
     val year = weekValue.value.first().year
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
@@ -128,7 +133,8 @@ fun KalendarOceanic(
                         kalendarDayColors = kalendarDayColors,
                         selectedKalendarDay = selectedKalendarDate.value,
                         dotColor = kalendarThemeColors[month.value.minus(1)].headerTextColor,
-                        dayBackgroundColor = kalendarThemeColors[month.value.minus(1)].dayBackgroundColor
+                        dayBackgroundColor = kalendarThemeColors[month.value.minus(1)].dayBackgroundColor,
+                        currentDayBorder = currentDayBorder
                     )
                 }
             }
@@ -145,10 +151,16 @@ fun KalendarOceanic(
     takeMeToDate: LocalDate?,
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColor: KalendarThemeColor,
-    kalendarHeaderConfig: KalendarHeaderConfig? = null
+    kalendarHeaderConfig: KalendarHeaderConfig? = null,
+    currentDayBorder: BorderStroke?
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
+
+    val firstWeekDay = currentDay.daysShift(-DayOfWeek.values().indexOf(currentDay.dayOfWeek))
+    val weekDays = mutableListOf<LocalDate>()
+    for(i in 0 until DayOfWeek.values().count())
+        weekDays.add(firstWeekDay.daysShift(i))
+    val weekValue = remember { mutableStateOf(weekDays.toList()) }
     val month = weekValue.value.first().month
     val year = weekValue.value.first().year
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
@@ -195,7 +207,7 @@ fun KalendarOceanic(
                             textColor = kalendarDayColors.textColor
                         )
                     }
-                    KalendarDay(
+                    com.himanshoe.kalendar.component.day.KalendarDay(
                         kalendarDay = localDate.toKalendarDay(),
                         modifier = Modifier,
                         kalendarEvents = kalendarEvents,
@@ -208,9 +220,20 @@ fun KalendarOceanic(
                         kalendarDayColors = kalendarDayColors,
                         dotColor = kalendarThemeColor.headerTextColor,
                         dayBackgroundColor = kalendarThemeColor.dayBackgroundColor,
+                        currentDayBorder = currentDayBorder
                     )
                 }
             }
         }
     }
+}
+
+fun LocalDate.daysShift(days: Int): LocalDate = when {
+    days < 0 -> {
+        minus(DateTimeUnit.DayBased(-days))
+    }
+    days > 0 -> {
+        plus(DateTimeUnit.DayBased(days))
+    }
+    else -> this
 }
